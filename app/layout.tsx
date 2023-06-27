@@ -1,5 +1,6 @@
 import './globals.css'
 import React from "react";
+import Home from "@/app/page";
 
 export const metadata = {
   title: 'Create Next App',
