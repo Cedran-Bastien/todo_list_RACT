@@ -2,9 +2,6 @@
 
 import React, {useEffect, useState} from "react";
 import {createClientComponentClient} from "@supabase/auth-helpers-nextjs";
-import {retryable} from "@supabase/gotrue-js/dist/module/lib/helpers";
-import {it} from "node:test";
-
 type Task = {
   id: number,
   title: string,
