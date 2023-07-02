@@ -2,7 +2,8 @@
 
 import React, {useEffect, useState} from "react";
 import {createClientComponentClient} from "@supabase/auth-helpers-nextjs";
-import {Task} from "@/app/layout";
+import {Task} from "@/components/atomes/task";
+
 
 
 export default function taskDetail({params}: {params: {id: number}}) {
