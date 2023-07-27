@@ -1,15 +1,19 @@
 import {createContext, ReactNode, useEffect, useState} from "react";
-import {Task} from "@/components/atomes/task";
+import {Task} from "@/components/molecule/task";
 import {createClientComponentClient} from "@supabase/auth-helpers-nextjs";
+import {v4 as uuidV4} from "uuid";
+import {flowParseAssignableListItemTypes} from "sucrase/dist/types/parser/plugins/flow";
 
 type TasksModel = {
     tasks: Task[] | null
+    isSetUp: boolean
     updateTask: (tasks: Task) => void
     addTask: (task : Task) => void
 }
 
 export const TodoListContext = createContext<TasksModel>({
     tasks : null,
+    isSetUp : false,
     updateTask: () => {},
     addTask: () => {}
 })
@@ -17,6 +21,7 @@ export const TodoListContext = createContext<TasksModel>({
 
 export const TaskContextProvider = ({children} : {children : ReactNode}) => {
     const [tasks , setTasks] = useState<Task[]>([])
+    const [isSetUp, setIsSetUp] = useState(false)
 
     // Init database
     const supabase = createClientComponentClient()
@@ -31,17 +36,20 @@ export const TaskContextProvider = ({children} : {children : ReactNode}) => {
                     // TODO : Show error in snackbar
                     console.log("Failed to fetch Tasks list data")
                     console.log(data.error)
-                    return
+                    return data.error
                 }
 
                 if (!data.data){
                     // TODO -> snackbar error
                     console.log("No data tasks")
-                    return
+                    return new Error("No data tasks")
                 }
 
                 setTasks(data.data)
-                console.log("Tasks fetched")
+                setIsSetUp(true)
+                
+                
+                
             })
     }, [])
 
@@ -62,10 +70,10 @@ export const TaskContextProvider = ({children} : {children : ReactNode}) => {
             .then(res => {
                 if (res.error){
                     // TODO -> snackbar error
-                    return
+                    return res.error
                 }
 
-                // Change local constext
+                // Change local context
                 setTasks( (lastTasks : Task[]) => {
                     return lastTasks.map( (item) => {
                         if (item.id != task.id){
@@ -80,10 +88,14 @@ export const TaskContextProvider = ({children} : {children : ReactNode}) => {
 
     // Set adding task
     const addTask = (task : Task) => {
+        // Set Id
+        task.id = uuidV4()
+
         // Change database
         supabase
             .from('Tasks')
             .insert([{
+                'id': task.id,
                 'title': task.title,
                 'content': task.content,
                 'status': task.status
@@ -91,13 +103,16 @@ export const TaskContextProvider = ({children} : {children : ReactNode}) => {
             .then(res => {
                 if (res.error){
                     // TODO -> snackbar error
-                    return
+                    return res.error
                 }
+
 
                 // Change local constext
                 setTasks( (lastTasks : Task[]) => {
                         return [...lastTasks, task]
                 })
+
+                // TODO -> snackbar confirmation
             })
     }
 
@@ -106,6 +121,7 @@ export const TaskContextProvider = ({children} : {children : ReactNode}) => {
         <TodoListContext.Provider
             value={{
                 tasks,
+                isSetUp,
                 updateTask,
                 addTask
             }}
