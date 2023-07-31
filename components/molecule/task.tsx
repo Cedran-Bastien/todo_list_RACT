@@ -1,6 +1,6 @@
 import {
     Box,
-    Checkbox, Fab, IconButton,
+    Checkbox, Fab, Hidden, IconButton,
     ListItem,
     ListItemButton,
     Stack, Typography
@@ -28,7 +28,7 @@ export const TaskUi = ({
     const router = useRouter()
 
     const handleClick= () => {
-        router.push(`/${task?.id}`)
+        router.push(`/dashboard/${task?.id}`)
     }
 
     return (
@@ -45,8 +45,8 @@ export const TaskUi = ({
                     }}
                 />
             }
-
             disablePadding={true}
+            sx={{height: 65, overflow: 'Hidden'}}
         >
             <ListItemButton onClick={handleClick} dense>
                 <Stack direction="column">
