@@ -1,4 +1,4 @@
 import {useContext} from "react";
-import {TodoListContext} from "@/context/TodoListContext";
+import {TasksListContext} from "@/context/TodoListContext";
 
-export const useTasks = () => useContext(TodoListContext)
+export const useTasks = () => useContext(TasksListContext)

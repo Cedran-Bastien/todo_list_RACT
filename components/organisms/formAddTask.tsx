@@ -18,7 +18,7 @@ export const FormAddTask = ({open}: {open: { open : boolean, setOpen: Dispatch<S
 
     // Form variable
     const fullScreen = useMediaQuery(useTheme().breakpoints.down('md'));
-    const { register, handleSubmit, formState: { errors } } = useForm<dataTask>({
+    const { register, reset, handleSubmit, formState: { errors } } = useForm<dataTask>({
         defaultValues: {
             title: '',
             description: ''
@@ -39,7 +39,14 @@ export const FormAddTask = ({open}: {open: { open : boolean, setOpen: Dispatch<S
         handleClose()
 
     }
-    const handleClose = () => open.setOpen(false)
+    const handleClose = () => {
+         open.setOpen(false)
+         
+         reset({
+            title: '',
+            description: ''
+         })
+    }
 
     return (
         <Dialog

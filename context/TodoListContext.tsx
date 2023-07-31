@@ -2,16 +2,15 @@ import {createContext, ReactNode, useEffect, useState} from "react";
 import {Task} from "@/components/molecule/task";
 import {createClientComponentClient} from "@supabase/auth-helpers-nextjs";
 import {v4 as uuidV4} from "uuid";
-import {flowParseAssignableListItemTypes} from "sucrase/dist/types/parser/plugins/flow";
 
-type TasksModel = {
+type TasksContextModel = {
     tasks: Task[] | null
     isSetUp: boolean
     updateTask: (tasks: Task) => void
     addTask: (task : Task) => void
 }
 
-export const TodoListContext = createContext<TasksModel>({
+export const TasksListContext = createContext<TasksContextModel>({
     tasks : null,
     isSetUp : false,
     updateTask: () => {},
@@ -118,7 +117,7 @@ export const TaskContextProvider = ({children} : {children : ReactNode}) => {
 
 
     return (
-        <TodoListContext.Provider
+        <TasksListContext.Provider
             value={{
                 tasks,
                 isSetUp,
@@ -127,7 +126,7 @@ export const TaskContextProvider = ({children} : {children : ReactNode}) => {
             }}
         >
             {children}
-        </TodoListContext.Provider>
+        </TasksListContext.Provider>
     )
 }
 
