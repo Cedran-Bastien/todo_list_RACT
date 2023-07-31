@@ -11,3 +11,7 @@ export type authData = {
     password: string
     passwordConfirmation? : string
 }
+
+export type User = {
+    
+}

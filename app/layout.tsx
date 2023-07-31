@@ -1,9 +1,8 @@
 'use client'
 
-import { SignIn } from '@/components/organisms/signIn'
+import { AuthContextProvider } from '@/context/AuthContext'
 import { CssBaseline } from '@mui/material'
 import { usePathname, useRouter } from 'next/navigation'
-import { useEffect } from 'react'
 // import './globals.css'
 
 
@@ -21,7 +20,9 @@ export default function RootLayout({children}: { children: React.ReactNode }) {
         <html lang="en">
             <body className="h-screen">
                 <CssBaseline />
-                {children}       
+                <AuthContextProvider>
+                    {children}  
+                </AuthContextProvider> 
             </body>
         </html>
     )

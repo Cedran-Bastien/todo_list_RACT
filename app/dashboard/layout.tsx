@@ -1,7 +1,7 @@
 'use client'
 
 import React, {useEffect, useState} from "react";
-import {TaskContextProvider} from "@/context/TodoListContext";
+import {TaskContextProvider} from "@/context/TasksListContext";
 import {TasksList} from "@/components/molecule/tasksList";
 import {Box, CircularProgress, Fade, Stack} from "@mui/material";
 import {usePathname} from "next/navigation";
