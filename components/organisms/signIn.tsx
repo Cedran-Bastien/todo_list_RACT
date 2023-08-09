@@ -3,8 +3,6 @@
 import * as React from 'react';
 import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
-import CssBaseline from '@mui/material/CssBaseline';
-import TextField from '@mui/material/TextField';
 import Link from 'next/link';
 import Grid from '@mui/material/Grid';
 import Box from '@mui/material/Box';
@@ -14,9 +12,13 @@ import Container from '@mui/material/Container';
 import { SubmitHandler, useForm } from 'react-hook-form';
 import { authData } from '@/type';
 import { useRouter } from 'next/navigation'
+import TextField from '@mui/material/TextField';
+import { useAuth } from '@/hooks/useAuth';
 
 export const SignIn = () => {
   const router = useRouter()
+
+  const { signIn } = useAuth
 
   // Form variable
   const { reset, register, handleSubmit, formState: { errors } } = useForm<authData>({
@@ -27,8 +29,12 @@ export const SignIn = () => {
   });
 
   const onSubmit : SubmitHandler<any> = (data) => {
-    // TODO   
-    router.push('/dashboard')
+    // TODO 
+    
+    signIn(data.email,data.password)
+      .then()
+    
+    //router.push('/dashboard')
     
     // reset({
     //   email: '',

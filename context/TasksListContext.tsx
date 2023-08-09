@@ -78,7 +78,6 @@ export const TaskContextProvider = ({children} : {children : ReactNode}) => {
                         if (item.id != task.id){
                             return item
                         }
-
                         return task
                     })
                 })

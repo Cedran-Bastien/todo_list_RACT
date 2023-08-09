@@ -3,6 +3,7 @@
 import { AuthContextProvider } from '@/context/AuthContext'
 import { CssBaseline } from '@mui/material'
 import { usePathname, useRouter } from 'next/navigation'
+import { ToastContainer } from 'react-toastify'
 // import './globals.css'
 
 
@@ -20,6 +21,7 @@ export default function RootLayout({children}: { children: React.ReactNode }) {
         <html lang="en">
             <body className="h-screen">
                 <CssBaseline />
+                <ToastContainer/>
                 <AuthContextProvider>
                     {children}  
                 </AuthContextProvider> 
