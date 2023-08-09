@@ -14,10 +14,17 @@ import Container from '@mui/material/Container';
 import { SubmitHandler, useForm } from 'react-hook-form';
 import { authData } from '@/type';
 import { useRouter } from 'next/navigation'
+import { useAuth } from '@/hooks/useAuth';
+
+const onSuccess = () => {
+  
+}
 
 export const SignUp = () => {
   const [password, setPassword] = React.useState('')
   const router = useRouter()
+  
+  const { signUp } = useAuth()
 
   // Form variable
   const { reset, register, handleSubmit, formState: { errors } } = useForm<authData>({
@@ -30,7 +37,9 @@ export const SignUp = () => {
   });
 
   const onSubmit : SubmitHandler<any> = (data) => {
-    // TODO 
+    signUp(data.email, data.password, data.firstName, data.lastName)
+      .then()
+
     // todo snackbar confirmation
     router.push('/auth/sign-in')
     
@@ -141,7 +150,10 @@ export const SignUp = () => {
                 helperText={errors.passwordConfirmation?.message}
                 {...register('passwordConfirmation', {
                   required: "Passwordis required",
-                  validate: v => v === password || "password not corresponding"
+                  validate: v => {
+                    console.log(password)
+                    return v === password || "password not corresponding"
+                  } 
                 })}
               />
             </Grid>
