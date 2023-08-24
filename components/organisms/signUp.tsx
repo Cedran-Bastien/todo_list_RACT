@@ -27,7 +27,7 @@ export const SignUp = () => {
   const { signUp } = useAuth()
 
   // Form variable
-  const { reset, register, handleSubmit, formState: { errors } } = useForm<authData>({
+  const { reset, getValues, register, handleSubmit, formState: { errors } } = useForm<authData>({
       defaultValues: {
         firstname:'',
         lastname:'',
@@ -38,7 +38,9 @@ export const SignUp = () => {
 
   const onSubmit : SubmitHandler<any> = (data) => {
     signUp(data.email, data.password, data.firstName, data.lastName)
-      .then()
+      .then((data) => {
+        console.log(data)
+      })
 
     // todo snackbar confirmation
     router.push('/auth/sign-in')
@@ -120,7 +122,7 @@ export const SignUp = () => {
                 fullWidth
                 label="Password"
                 type="password"
-                autoComplete="new-password"
+                autoComplete="password"
                 error={!!errors.password}
                 helperText={errors.password?.message}
                 {...register('password', {
@@ -152,7 +154,7 @@ export const SignUp = () => {
                   required: "Passwordis required",
                   validate: v => {
                     console.log(password)
-                    return v === password || "password not corresponding"
+                    return v === getValues('password') || "password not corresponding"
                   } 
                 })}
               />
