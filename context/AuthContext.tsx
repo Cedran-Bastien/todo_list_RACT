@@ -56,7 +56,7 @@ export const AuthContextProvider = ({children} : {children : ReactNode}) => {
                 password: password,
                 options: {
                     data: {
-                        Firstname:firstName,
+                        Firstname: firstName,
                         LastName: lastName, 
                     }
                 }

@@ -18,7 +18,7 @@ import { useAuth } from '@/hooks/useAuth';
 export const SignIn = () => {
   const router = useRouter()
 
-  const { signIn } = useAuth
+  const { signIn } = useAuth()
 
   // Form variable
   const { reset, register, handleSubmit, formState: { errors } } = useForm<authData>({
@@ -31,8 +31,10 @@ export const SignIn = () => {
   const onSubmit : SubmitHandler<any> = (data) => {
     // TODO 
     
-    signIn(data.email,data.password)
-      .then()
+    signIn(data.email, data.password)
+      .then((data) => {
+        console.log(data)
+      })
     
     //router.push('/dashboard')
     
