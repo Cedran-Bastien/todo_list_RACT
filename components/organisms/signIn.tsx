@@ -36,14 +36,14 @@ export const SignIn = () => {
         console.log(data)
       })
     
-    //router.push('/dashboard')
+    router.push('/dashboard')
     
-    // reset({
-    //   email: '',
-    //   password: ''
-    // })
+     reset({
+       email: '',
+       password: ''
+     })
   }
-   
+  
 
   return (
       <Container component="main" maxWidth="xs">

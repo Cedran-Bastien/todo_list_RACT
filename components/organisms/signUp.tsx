@@ -170,7 +170,7 @@ export const SignUp = () => {
           </Button>
           <Grid container justifyContent="flex-end">
             <Grid item>
-              <Link href="/auth/sign-in" variant="body2">
+              <Link href="/auth/sign-in" >
                 Already have an account? Sign in
               </Link>
             </Grid>
