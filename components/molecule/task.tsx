@@ -3,13 +3,14 @@ import {
     Checkbox, Fab, Hidden, IconButton,
     ListItem,
     ListItemButton,
-    Stack, Typography
+    Stack, Typography, alpha, createTheme
 } from "@mui/material";
 import React, {useEffect, useState} from "react";
 import {useTasks} from "@/hooks/useTasks";
 import {useRouter} from "next/navigation";
 import {createClientComponentClient} from "@supabase/auth-helpers-nextjs";
-import {CreateOutlined} from "@mui/icons-material";
+import {CreateOutlined, DeleteForever} from "@mui/icons-material";
+import { red } from "@mui/material/colors";
 
 
 export type Task = {
@@ -35,15 +36,23 @@ export const TaskUi = ({
         <ListItem
             key={task.id}
             secondaryAction={
-                <Checkbox
-                    checked={task.status}
-                    onChange={({target}) => {
-                        updateTask({
-                            ...task,
-                            status: target.checked
-                        })
-                    }}
-                />
+                <Box>
+                    <IconButton>
+                        <DeleteForever 
+                        color="warning"
+                    />
+                    </IconButton>
+                    <Checkbox
+                        checked={task.status}
+                        onChange={({target}) => {
+                            updateTask({
+                                ...task,
+                                status: target.checked
+                            })
+                        }}
+                    />
+                </Box>
+                
             }
             disablePadding={true}
             sx={{height: 65, overflow: 'Hidden'}}
