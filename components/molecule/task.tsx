@@ -7,7 +7,7 @@ import {
 } from "@mui/material";
 import React, {useEffect, useState} from "react";
 import {useTasks} from "@/hooks/useTasks";
-import {useRouter} from "next/navigation";
+import {useParams, useRouter} from "next/navigation";
 import {createClientComponentClient} from "@supabase/auth-helpers-nextjs";
 import {CreateOutlined, DeleteForever} from "@mui/icons-material";
 import { red } from "@mui/material/colors";
@@ -27,10 +27,14 @@ export const TaskUi = ({
 }) => {
     const { updateTask } = useTasks()
     const router = useRouter()
+    const param = useParams()
 
+    // Event execution
     const handleClick= () => {
         router.push(`/dashboard/${task?.id}`)
     }
+
+
 
     return (
         <ListItem
@@ -39,8 +43,8 @@ export const TaskUi = ({
                 <Box>
                     <IconButton>
                         <DeleteForever 
-                        color="warning"
-                    />
+                            color="warning"
+                        />
                     </IconButton>
                     <Checkbox
                         checked={task.status}
@@ -51,19 +55,19 @@ export const TaskUi = ({
                             })
                         }}
                     />
-                </Box>
-                
+                </Box>     
             }
             disablePadding={true}
             sx={{height: 65, overflow: 'Hidden'}}
+            
         >
-            <ListItemButton onClick={handleClick} dense>
+            <ListItemButton onClick={handleClick} selected={param.taskId == task.id} dense>
                 <Stack direction="column">
                     <Typography variant="h6" sx={{fontWeight:'bold'}}>{task.title}</Typography>
                     <Stack direction="column">
                         {task.content.split('\n').map(item =>
-                            <Typography key={item} sx={{opacity:'50%'}}>
-                                {item}
+                            <Typography key={item} sx={{opacity:'50%', maxHeight: '1.3em', overflow: 'hidden', textOverflow:"ellipsis"}}>
+                                {item || "∅"}
                             </Typography>
                         ).at(0)}
                     </Stack>

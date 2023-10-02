@@ -14,9 +14,11 @@ export const TasksList = () => {
                 <List
                     sx={{ height:'100%',
                         position: 'relative',
-                        overflow: 'auto',}}
+                        overflow: 'auto',
+                    }}
                     dense={true}
-                    disablePadding={false}
+                    disablePadding={true}
+
                 >
                     {tasks!.map((task) => <TaskUi key={task.id} task={task}/>)}
                 </List>
